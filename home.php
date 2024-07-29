@@ -15,7 +15,7 @@ require_once ("bd/bd_ordem.php");
     <!-- Content Row -->
     <div class="row">
 
-        <!-- Earnings (Monthly) Card Example -->
+        <!-- Ordens de Serviço Abertas -->
         <div class="col-xl-3 col-md-6 mb-4" id="cards-notice">
             <div class="card border-left-danger shadow h-100 py-2">
                 <div class="card-body">
@@ -25,25 +25,18 @@ require_once ("bd/bd_ordem.php");
                             Ordens de Serviço Abertas</div>
                             <div class="h5 mb-0 font-weight-bold text-gray-800">
                             <?php
+                                $status_aberto = 1;
                                 if ($_SESSION['perfil'] == 1) {
-                                    $status = 1;
-                                    $total = consultaStatusUsuario($status);
-                                    echo ($total['total']);
-                                }
-                                if ($_SESSION['perfil'] == 2) {
-                                    $cod_usuario = $_SESSION['cod_usu'];
-                                    $status = 1;
-                                    $total = consultaStatusCliente($cod_usuario,$status);
-                                    echo ($total['total']);
-                                }
-                                if ($_SESSION['perfil'] == 3) {
-                                    $cod_usuario = $_SESSION['cod_usu'];
-                                    $status = 1;
-                                    $total = consultaStatusTerceirizado($cod_usuario,$status);
-                                    echo ($total['total']);
+                                    $total = consultaStatusUsuario($_SESSION['cod_usu'], $status_aberto);
+                                    echo isset($total['total']) ? $total['total'] : '0';
+                                } elseif ($_SESSION['perfil'] == 2) {
+                                    $total = consultaStatusCliente($_SESSION['cod_usu'], $status_aberto);
+                                    echo isset($total['total']) ? $total['total'] : '0';
+                                } elseif ($_SESSION['perfil'] == 3) {
+                                    $total = consultaStatusTerceirizado($_SESSION['cod_usu'], $status_aberto);
+                                    echo isset($total['total']) ? $total['total'] : '0';
                                 }
                             ?>
-
                             </div>
                         </div>
                         <div class="col-auto">
@@ -54,33 +47,28 @@ require_once ("bd/bd_ordem.php");
             </div>
         </div>
 
+        <!-- Ordens de Serviço em Execução -->
         <div class="col-xl-3 col-md-6 mb-4" id="cards-notice">
             <div class="card border-left-warning shadow h-100 py-2">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                            Ordens de Serviço em Execussão</div>
+                            Ordens de Serviço em Execução</div>
                             <div class="h5 mb-0 font-weight-bold text-gray-800">
-                              <?php
+                            <?php
+                                $status_execucao = 2;
                                 if ($_SESSION['perfil'] == 1) {
-                                    $status = 2;
-                                    $total = consultaStatusUsuario($status);
-                                    echo ($total['total']);
+                                    $total = consultaStatusUsuario($_SESSION['cod_usu'], $status_execucao);
+                                    echo isset($total['total']) ? $total['total'] : '0';
+                                } elseif ($_SESSION['perfil'] == 2) {
+                                    $total = consultaStatusCliente($_SESSION['cod_usu'], $status_execucao);
+                                    echo isset($total['total']) ? $total['total'] : '0';
+                                } elseif ($_SESSION['perfil'] == 3) {
+                                    $total = consultaStatusTerceirizado($_SESSION['cod_usu'], $status_execucao);
+                                    echo isset($total['total']) ? $total['total'] : '0';
                                 }
-                                if ($_SESSION['perfil'] == 2) {
-                                    $cod_usuario = $_SESSION['cod_usu'];
-                                    $status = 2;
-                                    $total = consultaStatusCliente($cod_usuario,$status);
-                                    echo ($total['total']);
-                                }
-                                if ($_SESSION['perfil'] == 3) {
-                                    $cod_usuario = $_SESSION['cod_usu'];
-                                    $status = 2;
-                                    $total = consultaStatusTerceirizado($cod_usuario,$status);
-                                    echo ($total['total']);
-                                }
-                            ?>  
+                            ?>
                             </div>
                         </div>
                         <div class="col-auto">
@@ -90,7 +78,8 @@ require_once ("bd/bd_ordem.php");
                 </div>
             </div>
         </div>
-        
+
+        <!-- Ordens de Serviço Concluídas -->
         <div class="col-xl-3 col-md-6 mb-4" id="cards-notice">
             <div class="card border-left-info shadow h-100 py-2">
                 <div class="card-body">
@@ -99,43 +88,34 @@ require_once ("bd/bd_ordem.php");
                             <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
                             Ordens de Serviço Concluídas</div>
                             <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                <?php
+                            <?php
+                                $status_concluida = 3;
                                 if ($_SESSION['perfil'] == 1) {
-                                    $status = 3;
-                                    $total = consultaStatusUsuario($status);
-                                    echo ($total['total']);
+                                    $total = consultaStatusUsuario($_SESSION['cod_usu'], $status_concluida);
+                                    echo isset($total['total']) ? $total['total'] : '0';
+                                } elseif ($_SESSION['perfil'] == 2) {
+                                    $total = consultaStatusCliente($_SESSION['cod_usu'], $status_concluida);
+                                    echo isset($total['total']) ? $total['total'] : '0';
+                                } elseif ($_SESSION['perfil'] == 3) {
+                                    $total = consultaStatusTerceirizado($_SESSION['cod_usu'], $status_concluida);
+                                    echo isset($total['total']) ? $total['total'] : '0';
                                 }
-                                if ($_SESSION['perfil'] == 2) {
-                                    $cod_usuario = $_SESSION['cod_usu'];
-                                    $status = 3;
-                                    $total = consultaStatusCliente($cod_usuario,$status);
-                                    echo ($total['total']);
-                                }
-                                if ($_SESSION['perfil'] == 3) {
-                                    $cod_usuario = $_SESSION['cod_usu'];
-                                    $status = 3;
-                                    $total = consultaStatusTerceirizado($cod_usuario,$status);
-                                    echo ($total['total']);
-                                }
-                            ?>  
+                            ?>
                             </div>
                         </div>
                         <div class="col-auto">
-                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                            <i class="fas fa-check fa-2x text-gray-300"></i>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        
+
     </div>
-
-
 </div>
 <!-- /.container-fluid -->
 
 </div>
-
 
 <?php
 require_once('footer.php');

@@ -7,14 +7,24 @@ require_once ("bd/bd_ordem.php");
 require_once ("bd/bd_cliente.php");
 require_once ("bd/bd_terceirizado.php");
 
-$dados = buscaOrdemadd();
+$dadosOrdem = buscaOrdemadd();
 
-$nome_cliente = $dados[0];
-$nome_terceirizado = $dados[1];
-$nome_servico = $dados[2];
-$valor_servico = $dados[3];
-$data_servico = $dados[4];
-$status = $dados[5];
+if (!empty($dadosOrdem)) {
+    // Verificar se os dados esperados existem antes de acessar
+    $nome_cliente = isset($dadosOrdem['nome_cliente']) ? $dadosOrdem['nome_cliente'] : 'N/A';
+    $nome_terceirizado = isset($dadosOrdem['nome_terceirizado']) ? $dadosOrdem['nome_terceirizado'] : 'N/A';
+    $nome_servico = isset($dadosOrdem['nome_servico']) ? $dadosOrdem['nome_servico'] : 'N/A';
+    $valor_servico = isset($dadosOrdem['valor_servico']) ? $dadosOrdem['valor_servico'] : 'N/A';
+    $data_servico = isset($dadosOrdem['data_servico']) ? $dadosOrdem['data_servico'] : 'N/A';
+    $status = isset($dadosOrdem['status']) ? $dadosOrdem['status'] : 'N/A';
+} else {
+    $nome_cliente = 'N/A';
+    $nome_terceirizado = 'N/A';
+    $nome_servico = 'N/A';
+    $valor_servico = 'N/A';
+    $data_servico = 'N/A';
+    $status = 'N/A';
+}
 ?>
 
 <!-- Main Content -->

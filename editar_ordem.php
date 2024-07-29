@@ -5,6 +5,7 @@ require_once('header.php');
 require_once('sidebar.php'); 
 require_once ("bd/bd_ordem.php");
 require_once ("bd/bd_terceirizado.php");
+require_once ("bd/bd_cliente.php");
 
 $codigo = $_GET['cod'];
 $dados = buscaOrdemeditar($codigo);

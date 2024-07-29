@@ -19,5 +19,4 @@ if($dados == 1){
 	header ("Location:cad_ordem.php");
 }
 
-
 ?>

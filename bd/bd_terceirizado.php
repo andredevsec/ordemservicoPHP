@@ -1,5 +1,4 @@
 <?php
-
 require_once("conecta_bd.php");
 
 function checaTerceirizado($email, $senha) {
@@ -97,5 +96,7 @@ function editarTerceirizado($codigo,$status,$data){
     }
 
 }
+
+
 
 ?>
