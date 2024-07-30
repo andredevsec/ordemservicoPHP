@@ -7,16 +7,23 @@ function listaOrdem() {
 
     $ordens = array();
 
-    $query = "SELECT * FROM ordem ORDER BY cod";
+    $query = "SELECT o.cod, c.nome AS nome_cliente, t.nome AS nome_terceirizado, s.nome AS nome_servico, s.valor AS valor_servico, o.data_servico, o.status
+              FROM ordem o
+              JOIN cliente c ON o.cod_cliente = c.cod
+              JOIN terceirizado t ON o.cod_terceirizado = t.cod
+              JOIN servico s ON o.cod_servico = s.cod
+              ORDER BY o.data_servico DESC";
+    
     $resultado = mysqli_query($conexao, $query);
-
-    while ($dados = mysqli_fetch_array($resultado)) {
+    while ($dados = mysqli_fetch_assoc($resultado)) {
         array_push($ordens, $dados);
     }
 
     mysqli_close($conexao); // Fechar a conexão
     return $ordens;
 }
+    
+
 
 function buscaOrdem($codigo) {
     $conexao = conecta_bd();
@@ -59,17 +66,16 @@ function buscaOrdemadd() {
               JOIN cliente c ON o.cod_cliente = c.cod
               JOIN terceirizado t ON o.cod_terceirizado = t.cod
               JOIN servico s ON o.cod_servico = s.cod
-              ORDER BY o.data_servico DESC
-              LIMIT 1"; // Ajuste conforme a lógica de seu sistema
+              ORDER BY o.data_servico DESC";
     
     $resultado = mysqli_query($conexao, $query);
     if ($resultado && mysqli_num_rows($resultado) > 0) {
         $dados = mysqli_fetch_assoc($resultado);
     } else {
-        $dados = []; // Retorne um array vazio se não encontrar resultados
+        $dados = []; 
     }
 
-    mysqli_close($conexao); // Fechar a conexão
+    mysqli_close($conexao); 
 
     return $dados;
 }
@@ -80,7 +86,7 @@ function removeOrdem($codigo) {
     mysqli_query($conexao, $query);
     $affectedRows = mysqli_affected_rows($conexao);
 
-    mysqli_close($conexao); // Fechar a conexão
+    mysqli_close($conexao); 
     return $affectedRows;
 }
 
