@@ -29,4 +29,5 @@ if ($dados == 1) {
     $_SESSION['texto_erro'] = 'Os dados da ordem de serviço não foram alterados no sistema! Detalhes: ' . $dados;
     header("Location: ordem.php");
 }
+
 ?>

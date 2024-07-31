@@ -15,7 +15,6 @@ $nome_terceirizado = $dados['nome_terceirizado'];
 $nome_servico = $dados['nome_servico'];
 $data_servico = $dados['data_servico'];
 $status = $dados['status'];
-$cod_servico = $dados['cod_servico'];
 $cod_terceirizado = $dados['cod_terceirizado']; // Se necessário
 
 $terceirizados = listaTerceirizados(); // Certifique-se de que essa função retorna os dados corretos
