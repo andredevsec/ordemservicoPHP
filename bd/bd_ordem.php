@@ -122,15 +122,15 @@ function editarOrdem($cod, $cod_cliente, $cod_terceirizado, $cod_servico, $data_
                   WHERE cod = '$cod'";
         $resultado = mysqli_query($conexao, $query);
         $dados = mysqli_affected_rows($conexao);
+        mysqli_close($conexao);
         return $dados;
     }
 }
 
-
-function consultaStatusUsuario($codigo)
+function consultaStatusUsuario($status)
 {
     $conexao = conecta_bd();
-    $query = "SELECT COUNT(*) as total FROM ordem WHERE cod = '$codigo'";
+    $query = "SELECT COUNT(*) as total FROM ordem WHERE status = '$status'";
     $resultado = mysqli_query($conexao, $query);
     $dados = mysqli_fetch_assoc($resultado);
 
@@ -138,10 +138,10 @@ function consultaStatusUsuario($codigo)
     return $dados ? $dados : ['total' => 0];
 }
 
-function consultaStatusCliente($codigo)
+function consultaStatusCliente($codigo, $status)
 {
     $conexao = conecta_bd();
-    $query = "SELECT COUNT(*) as total FROM ordem WHERE cod = '$codigo'";
+    $query = "SELECT COUNT(*) as total FROM ordem WHERE cod_cliente = '$codigo' AND status = '$status'";
     $resultado = mysqli_query($conexao, $query);
     $dados = mysqli_fetch_assoc($resultado);
 
@@ -149,10 +149,10 @@ function consultaStatusCliente($codigo)
     return $dados ? $dados : ['total' => 0];
 }
 
-function consultaStatusTerceirizado($codigo)
+function consultaStatusTerceirizado($codigo, $status)
 {
     $conexao = conecta_bd();
-    $query = "SELECT COUNT(*) as total FROM ordem WHERE cod = '$codigo'";
+    $query = "SELECT COUNT(*) as total FROM ordem WHERE cod_terceirizado = '$codigo' AND status = '$status'";
     $resultado = mysqli_query($conexao, $query);
     $dados = mysqli_fetch_assoc($resultado);
 

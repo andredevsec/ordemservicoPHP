@@ -1,7 +1,7 @@
 <?php
 require_once('valida_session.php');
-require_once('header.php'); 
-require_once('sidebar.php'); 
+require_once('header.php');
+require_once('sidebar.php');
 require_once ("bd/bd_ordem.php");
 ?>
 
@@ -27,7 +27,7 @@ require_once ("bd/bd_ordem.php");
                             <?php
                                 $status_aberto = 1;
                                 if ($_SESSION['perfil'] == 1) {
-                                    $total = consultaStatusUsuario($_SESSION['cod_usu'], $status_aberto);
+                                    $total = consultaStatusUsuario($status_aberto);
                                     echo isset($total['total']) ? $total['total'] : '0';
                                 } elseif ($_SESSION['perfil'] == 2) {
                                     $total = consultaStatusCliente($_SESSION['cod_usu'], $status_aberto);
@@ -59,7 +59,7 @@ require_once ("bd/bd_ordem.php");
                             <?php
                                 $status_execucao = 2;
                                 if ($_SESSION['perfil'] == 1) {
-                                    $total = consultaStatusUsuario($_SESSION['cod_usu'], $status_execucao);
+                                    $total = consultaStatusUsuario($status_execucao);
                                     echo isset($total['total']) ? $total['total'] : '0';
                                 } elseif ($_SESSION['perfil'] == 2) {
                                     $total = consultaStatusCliente($_SESSION['cod_usu'], $status_execucao);
@@ -91,7 +91,7 @@ require_once ("bd/bd_ordem.php");
                             <?php
                                 $status_concluida = 3;
                                 if ($_SESSION['perfil'] == 1) {
-                                    $total = consultaStatusUsuario($_SESSION['cod_usu'], $status_concluida);
+                                    $total = consultaStatusUsuario($status_concluida);
                                     echo isset($total['total']) ? $total['total'] : '0';
                                 } elseif ($_SESSION['perfil'] == 2) {
                                     $total = consultaStatusCliente($_SESSION['cod_usu'], $status_concluida);

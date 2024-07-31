@@ -27,7 +27,7 @@ else{
 	}
 	elseif($dados['status'] != 1){
 		$_SESSION['texto_erro_login'] = 'Acesso bloqueado ao sistema!';
-	    header("Location:index.php");	
+	    header("Location:index.php");
 	}
 	else {
 	    // Salva os dados encontrados na sessão
