@@ -2,12 +2,17 @@
 require_once('valida_session.php');
 require_once('header.php'); 
 require_once('sidebar.php'); 
-require_once ("bd/bd_ordem.php");
-require_once ("bd/bd_terceirizado.php");
-require_once ("bd/bd_cliente.php");
+require_once("bd/bd_ordem.php");
+require_once("bd/bd_terceirizado.php");
+require_once("bd/bd_servico.php");
+require_once("bd/bd_cliente.php");
 
 $codigo = $_GET['cod'];
 $dados = buscaOrdemeditar($codigo);
+
+if (!$dados) {
+    die("Erro: Ordem de serviço não encontrada.");
+}
 
 $cod = $dados['cod'];
 $nome_cliente = $dados['nome_cliente'];
@@ -15,15 +20,16 @@ $nome_terceirizado = $dados['nome_terceirizado'];
 $nome_servico = $dados['nome_servico'];
 $data_servico = $dados['data_servico'];
 $status = $dados['status'];
-$cod_terceirizado = $dados['cod_terceirizado']; // Se necessário
+$cod_terceirizado = $dados['cod_terceirizado'];
+$cod_servico = $dados['cod_servico'];
+$cod_cliente = $dados['cod_cliente'];
 
-$terceirizados = listaTerceirizados(); // Certifique-se de que essa função retorna os dados corretos
-
+$terceirizados = listaTerceirizados();
+$servicos = listaServicos();
 ?>
 
 <!-- Main Content -->
 <div id="content">
-
     <?php require_once('navbar.php');?>
 
     <!-- Begin Page Content -->
@@ -39,7 +45,8 @@ $terceirizados = listaTerceirizados(); // Certifique-se de que essa função ret
             </div>
             <div class="card-body">
                 <form class="user" action="editar_ordem_envia.php" method="post">
-                    <input type="hidden" name="cod" value="<?= htmlspecialchars($cod, ENT_QUOTES, 'UTF-8') ?>">
+                <input type="hidden" name="cod" value="<?= htmlspecialchars($cod, ENT_QUOTES, 'UTF-8') ?>">
+                <input type="hidden" name="cod_cliente" value="<?= htmlspecialchars($cod_cliente, ENT_QUOTES, 'UTF-8') ?>">
                     
                     <div class="form-group row">
                         <div class="col-sm-6 mb-3 mb-sm-0">
@@ -48,7 +55,12 @@ $terceirizados = listaTerceirizados(); // Certifique-se de que essa função ret
                         </div>
                         <div class="col-sm-6">
                             <label>Serviço</label>
-                            <input type="text" class="form-control form-control-user" id="nome_servico" name="nome_servico" value="<?= htmlspecialchars($nome_servico, ENT_QUOTES, 'UTF-8') ?>" readonly>
+                            <select class="form-control" id="cod_servico" name="cod_servico" required>
+                                <option value="<?= htmlspecialchars($cod_servico, ENT_QUOTES, 'UTF-8') ?>"><?= htmlspecialchars($nome_servico, ENT_QUOTES, 'UTF-8') ?></option>
+                                <?php foreach($servicos as $servico): ?>
+                                    <option value="<?= htmlspecialchars($servico['cod'], ENT_QUOTES, 'UTF-8') ?>"><?= htmlspecialchars($servico['nome'], ENT_QUOTES, 'UTF-8') ?></option>
+                                <?php endforeach ?>
+                            </select>
                         </div>
                     </div>
 
@@ -95,5 +107,4 @@ $terceirizados = listaTerceirizados(); // Certifique-se de que essa função ret
 <!-- End of Main Content -->
 <?php
 require_once('footer.php');
-
 ?>
