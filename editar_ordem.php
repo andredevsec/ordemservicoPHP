@@ -1,4 +1,3 @@
-
 <?php
 require_once('valida_session.php');
 require_once('header.php'); 
@@ -10,15 +9,16 @@ require_once ("bd/bd_cliente.php");
 $codigo = $_GET['cod'];
 $dados = buscaOrdemeditar($codigo);
 
-$cod = $dados[0];
-$nome_cliente = $dados[1];
-$nome_terceirizado = $dados[2];
-$nome_servico = $dados[3];
-$data_servico = $dados[4];
-$status = $dados[5];
-$cod_terceirizado = $dados[6];
+$cod = $dados['cod'];
+$nome_cliente = $dados['nome_cliente'];
+$nome_terceirizado = $dados['nome_terceirizado'];
+$nome_servico = $dados['nome_servico'];
+$data_servico = $dados['data_servico'];
+$status = $dados['status'];
+$cod_servico = $dados['cod_servico'];
+$cod_terceirizado = $dados['cod_terceirizado']; // Se necessário
 
-$terceirizados = listaTerceirizados();
+$terceirizados = listaTerceirizados(); // Certifique-se de que essa função retorna os dados corretos
 
 ?>
 
@@ -40,48 +40,49 @@ $terceirizados = listaTerceirizados();
             </div>
             <div class="card-body">
                 <form class="user" action="editar_ordem_envia.php" method="post">
-                    <input type="hidden" name="cod" value="<?=$cod?>">
+                    <input type="hidden" name="cod" value="<?= htmlspecialchars($cod, ENT_QUOTES, 'UTF-8') ?>">
+                    
                     <div class="form-group row">
                         <div class="col-sm-6 mb-3 mb-sm-0">
-                            <label> Nome do Cliente </label>
-                            <input type="text" class="form-control form-control-user" id="nome_cliente" name="nome_cliente" value="<?= $nome_cliente ?>" readonly>
+                            <label>Nome do Cliente</label>
+                            <input type="text" class="form-control form-control-user" id="nome_cliente" name="nome_cliente" value="<?= htmlspecialchars($nome_cliente, ENT_QUOTES, 'UTF-8') ?>" readonly>
                         </div>
                         <div class="col-sm-6">
-                            <label> Serviço </label>
-                            <input type="text" class="form-control form-control-user" id="nome_servico" name="nome_servico" value="<?= $nome_servico ?>" readonly>
+                            <label>Serviço</label>
+                            <input type="text" class="form-control form-control-user" id="nome_servico" name="nome_servico" value="<?= htmlspecialchars($nome_servico, ENT_QUOTES, 'UTF-8') ?>" readonly>
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <div class="col-sm-6 mb-3 mb-sm-0">
-                            <label> Terceirizado </label>
+                            <label>Terceirizado</label>
                             <select class="form-control" id="cod_terceirizado" name="cod_terceirizado" required>
-                                <option value="<?=$cod_terceirizado?>"><?=$nome_terceirizado?></option> 
-                                <?php foreach($terceirizados as $dados):?>
-                                <option value="<?=$dados['cod']?>"><?=$dados['nome']?></option> 
+                                <option value="<?= htmlspecialchars($cod_terceirizado, ENT_QUOTES, 'UTF-8') ?>"><?= htmlspecialchars($nome_terceirizado, ENT_QUOTES, 'UTF-8') ?></option>
+                                <?php foreach($terceirizados as $dados): ?>
+                                    <option value="<?= htmlspecialchars($dados['cod'], ENT_QUOTES, 'UTF-8') ?>"><?= htmlspecialchars($dados['nome'], ENT_QUOTES, 'UTF-8') ?></option>
                                 <?php endforeach ?>
-                                </select>
+                            </select>
                         </div>
                         <div class="col-sm-6">
-                            <label> Data do Serviço </label>
-                            <input type="date" class="form-control form-control-user" id="data_servico" name="data_servico" value="<?= $data_servico ?>" required>
+                            <label>Data do Serviço</label>
+                            <input type="date" class="form-control form-control-user" id="data_servico" name="data_servico" value="<?= htmlspecialchars($data_servico, ENT_QUOTES, 'UTF-8') ?>" required>
                         </div>
                     </div>
 
                     <div class="form-group row">
-                             <div class="col-sm-6">
-                                <label> Situação </label>
-                                <select class="form-control" id="status" name="status" required>
-                                    <option value="1" <?php echo ($status == 1) ? 'selected': ''; ?>>Aberto</option>
-                                    <option value="2" <?php echo ($status == 2) ? 'selected': ''; ?>>Executando</option>
-                                    <option value="3" <?php echo ($status == 3) ? 'selected': ''; ?>>Concluida</option>
-                                </select>
-                            </div>                   
+                        <div class="col-sm-6">
+                            <label>Situação</label>
+                            <select class="form-control" id="status" name="status" required>
+                                <option value="1" <?= ($status == 1) ? 'selected' : ''; ?>>Aberto</option>
+                                <option value="2" <?= ($status == 2) ? 'selected' : ''; ?>>Executando</option>
+                                <option value="3" <?= ($status == 3) ? 'selected' : ''; ?>>Concluída</option>
+                            </select>
+                        </div>
                     </div>
                     <div class="card-footer text-muted" id="btn-form">
-                        <div class=text-right>
-                            <a title="Voltar" href="ordem.php"><button type="button" class="btn btn-success"><i class="fas fa-arrow-circle-left"></i>&nbsp;</i>Voltar</button></a>
-                            <a title="Adicionar"><button type="submit" name="updatebtn" class="btn btn-primary uptadebtn"><i class="fas fa-edit">&nbsp;</i>Atualizar</button> </a>
+                        <div class="text-right">
+                            <a title="Voltar" href="ordem.php"><button type="button" class="btn btn-success"><i class="fas fa-arrow-circle-left"></i>&nbsp;Voltar</button></a>
+                            <button type="submit" name="updatebtn" class="btn btn-primary"><i class="fas fa-edit">&nbsp;</i>Atualizar</button>
                         </div>
                     </div>
                 </form>  
@@ -95,6 +96,5 @@ $terceirizados = listaTerceirizados();
 <!-- End of Main Content -->
 <?php
 require_once('footer.php');
+
 ?>
-
-

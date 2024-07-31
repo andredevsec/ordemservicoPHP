@@ -89,9 +89,15 @@ function removeOrdem($codigo) {
 function buscaOrdemeditar($codigo) {
     $conexao = conecta_bd();
 
-    $query = "SELECT * FROM ordem WHERE cod = '$codigo'";
+    $query = "SELECT o.cod, c.nome AS nome_cliente, t.nome AS nome_terceirizado, s.nome AS nome_servico, o.data_servico, o.status, o.cod_terceirizado
+              FROM ordem o
+              JOIN cliente c ON o.cod_cliente = c.cod
+              JOIN terceirizado t ON o.cod_terceirizado = t.cod
+              JOIN servico s ON o.cod_servico = s.cod
+              WHERE o.cod = '$codigo'";
+    
     $resultado = mysqli_query($conexao, $query);
-    $dados = mysqli_fetch_array($resultado);
+    $dados = mysqli_fetch_assoc($resultado);
 
     mysqli_close($conexao);
     return $dados;
