@@ -31,16 +31,10 @@ function listaClientes(){
 
 }
 
-function buscaCliente($email){
+function buscaCliente($email) {
     $conexao = conecta_bd();
-    $query = "select *
-              from cliente
-              where email='$email'";
-
-    $resultado = mysqli_query($conexao, $query);
-    $dados = mysqli_num_rows($resultado);
-
-    return $dados;
+    $query = "SELECT * FROM cliente WHERE email='$email'";
+    return mysqli_query($conexao, $query);
 }
 
 function cadastraCliente($nome,$email,$senha,$endereco,$numero,$bairro,$cidade,$telefone,$status,$perfil,$data){
@@ -95,6 +89,34 @@ function editarCliente($codigo,$status,$data){
         $resultado = mysqli_query($conexao,$query);
         $dados = mysqli_affected_rows($conexao);
         return $dados;
+    }
+
+}
+
+function editarSenhaCliente($codigo, $senha) {
+    $conexao = conecta_bd();
+    $query = "UPDATE cliente SET senha='$senha' WHERE cod='$codigo'";
+    mysqli_query($conexao, $query);
+    return mysqli_affected_rows($conexao) > 0;
+}
+
+function editarPerfilCliente($codigo,$nome,$email,$endereco,$numero,$bairro,$cidade,$telefone,$data){
+    $conexao = conecta_bd();
+
+    $query = "Select *
+              From cliente
+              Where cod = '$codigo'";
+                     
+    $resultado = mysqli_query($conexao,$query);
+    $dados = mysqli_num_rows($resultado);
+    if($dados == 3)
+    {
+        $query = "Update usuario
+                  Set nome = '$nome', email = '$email', endereco = '$endereco', numero = '$numero',bairro = '$bairro', cidade = '$cidade', telefone = '$telefone' data = '$data'
+                  where cod = '$codigo'";
+        $resultado = mysqli_query($conexao,$query);
+        $dados = mysqli_affected_rows($conexao);
+        return $dados;      
     }
 
 }

@@ -30,16 +30,10 @@ function listaTerceirizados(){
 
 }
 
-function buscaTerceirizado($email){
+function buscaTerceirizado($email) {
     $conexao = conecta_bd();
-    $query = "select *
-              from terceirizado
-              where email='$email'";
-
-    $resultado = mysqli_query($conexao, $query);
-    $dados = mysqli_num_rows($resultado);
-
-    return $dados;
+    $query = "SELECT * FROM terceirizado WHERE email='$email'";
+    return mysqli_query($conexao, $query);
 }
 
 function cadastraTerceirizado($nome,$email,$telefone,$senha,$status,$perfil,$data){
@@ -78,25 +72,33 @@ function buscaTerceirizadoeditar($codigo){
 
 }
 
-function editarTerceirizado($codigo,$status,$data){
-    $conexao = conecta_bd();
-    $query = "select *
-              from terceirizado
-              where cod='$codigo'";
 
+function editarSenhaTerceirizado($codigo, $senha) {
+    $conexao = conecta_bd();
+    $query = "UPDATE terceirizado SET senha='$senha' WHERE cod='$codigo'";
+    mysqli_query($conexao, $query);
+    return mysqli_affected_rows($conexao) > 0;
+}
+
+function editarPerfilTerceirizado($codigo,$nome,$email,$telefone,$data){
+    $conexao = conecta_bd();
+
+    $query = "Select *
+              From terceirizado
+              Where cod = '$codigo'";
+                     
     $resultado = mysqli_query($conexao,$query);
     $dados = mysqli_num_rows($resultado);
-    if($dados == 1){
-        $query = "update terceirizado
-        set status = '$status', data = '$data'
-        where cod = '$codigo'";
+    if($dados == 3)
+    {
+        $query = "Update usuario
+                  Set nome = '$nome', email = '$email', telefone = '$telefone' data = '$data'
+                  where cod = '$codigo'";
         $resultado = mysqli_query($conexao,$query);
         $dados = mysqli_affected_rows($conexao);
-        return $dados;
+        return $dados;      
     }
 
 }
-
-
 
 ?>

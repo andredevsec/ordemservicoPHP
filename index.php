@@ -32,7 +32,7 @@ require_once('header.php');
                                             </button>
                                         </div>
                                    <?php
-									unset($_SESSION['texto_erro_login']);
+                                    unset($_SESSION['texto_erro_login']);
                                     endif;
                                    ?>
                                    
@@ -59,11 +59,18 @@ require_once('header.php');
                                         </div>
                                         <button type="submit" class="btn btn-primary btn-user btn-block">
                                             Acessar
-                                        </button>                                        
+                                        </button>   
+                                    </form>
+                                    
+                                    <!-- Redireciona para o formulário de troca de senha -->
+                                    <form class="user mt-2" action="troca_senha_form.php" method="get">
+                                        <button type="submit" class="btn btn-secondary btn-user btn-block">
+                                            Esqueci minha senha
+                                        </button>
                                     </form>
                                     
                                     <div class="text-center">
-                                        
+                                        <!-- Links adicionais ou informações -->
                                     </div>
                                 </div>
                             </div>
@@ -88,4 +95,5 @@ require_once('header.php');
     <script src="js/popper.min.js"></script>
     <script src="js/validate.js"></script>
 
-
+</body>
+</html>
