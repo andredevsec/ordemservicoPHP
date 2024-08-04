@@ -34,7 +34,10 @@ function listaClientes(){
 function buscaCliente($email) {
     $conexao = conecta_bd();
     $query = "SELECT * FROM cliente WHERE email='$email'";
-    return mysqli_query($conexao, $query);
+    $resultado = mysqli_query($conexao, $query);
+    $dados = mysqli_num_rows($resultado);
+
+    return $dados;
 }
 
 function cadastraCliente($nome,$email,$senha,$endereco,$numero,$bairro,$cidade,$telefone,$status,$perfil,$data){
