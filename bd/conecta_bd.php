@@ -5,7 +5,7 @@
         $servidor = "localhost";
         $usuario_bd = "root";
         $senha_bd = "";
-        $senha_bd = "andre123";
+        // $senha_bd = "andre123";
         $banco = "ordemservico";
 
         $conexao = mysqli_connect($servidor, $usuario_bd, $senha_bd, $banco);

@@ -40,17 +40,16 @@ function buscaCliente($email) {
     return $dados;
 }
 
-function cadastraCliente($nome,$email,$senha,$endereco,$numero,$bairro,$cidade,$telefone,$status,$perfil,$data){
-
+function cadastraCliente($nome, $email, $senha, $cep, $endereco, $numero, $bairro, $cidade, $uf, $telefone, $status, $perfil, $data){
     $conexao = conecta_bd();
-    $query = "Insert Into cliente(nome,email,senha,endereco,numero,bairro,cidade,telefone,status,perfil,data) 
-    values('$nome','$email','$senha','$endereco','$numero','$bairro','$cidade','$telefone','$status','$perfil','$data')";
+
+    $query = "INSERT INTO cliente (nome, email, senha, cep, endereco, numero, bairro, cidade, uf, telefone, status, perfil, data) 
+              VALUES ('$nome', '$email', '$senha', '$cep', '$endereco', '$numero', '$bairro', '$cidade', '$uf', '$telefone', '$status', '$perfil', '$data')";
 
     $resultado = mysqli_query($conexao, $query);
     $dados = mysqli_affected_rows($conexao);
 
     return $dados;
-
 }
 
 function removeCliente($codigo){

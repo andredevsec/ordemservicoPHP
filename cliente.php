@@ -6,10 +6,12 @@ require_once('sidebar.php');
 unset ($_SESSION['nome']);
 unset ($_SESSION['email']);
 unset ($_SESSION['senha']);
+unset ($_SESSION['cep']);
 unset ($_SESSION['endereco']);
 unset ($_SESSION['numero']);
 unset ($_SESSION['bairro']);
 unset ($_SESSION['cidade']);
+unset ($_SESSION['uf']);
 unset ($_SESSION['telefone']);
 
 ?>

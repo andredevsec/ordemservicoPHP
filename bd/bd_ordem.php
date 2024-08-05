@@ -24,8 +24,6 @@ function listaOrdem()
     return $ordens;
 }
 
-
-
 function buscaOrdem($codigo)
 {
     $conexao = conecta_bd();

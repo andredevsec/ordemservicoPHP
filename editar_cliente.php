@@ -1,4 +1,3 @@
-
 <?php
 require_once('valida_session.php');
 require_once('header.php'); 
@@ -102,5 +101,3 @@ $status = $dados["status"];
 <?php
 require_once('footer.php');
 ?>
-
-
