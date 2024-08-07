@@ -56,7 +56,7 @@ if($dados != 0){
 		$_SESSION['numero'] = $numero;
 		$_SESSION['bairro'] = $bairro;
 		$_SESSION['cidade'] = $cidade;
-		$_SESSION['uf'] = $cidade;
+		$_SESSION['uf'] = $uf;
 		$_SESSION['telefone'] = $telefone;
 		header ("Location:cad_cliente.php");
 	}

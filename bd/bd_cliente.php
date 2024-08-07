@@ -34,10 +34,7 @@ function listaClientes(){
 function buscaCliente($email) {
     $conexao = conecta_bd();
     $query = "SELECT * FROM cliente WHERE email='$email'";
-    $resultado = mysqli_query($conexao, $query);
-    $dados = mysqli_num_rows($resultado);
-
-    return $dados;
+    return mysqli_query($conexao, $query);
 }
 
 function cadastraCliente($nome, $email, $senha, $cep, $endereco, $numero, $bairro, $cidade, $uf, $telefone, $status, $perfil, $data){
@@ -52,15 +49,33 @@ function cadastraCliente($nome, $email, $senha, $cep, $endereco, $numero, $bairr
     return $dados;
 }
 
-function removeCliente($codigo){
-     $conexao = conecta_bd();
-    $query = "delete from cliente where cod = '$codigo'";
+function removeCliente($codigo) {
+    $conexao = conecta_bd();
 
-    $resultado = mysqli_query($conexao, $query);
-    $dados = mysqli_affected_rows($conexao);
+    mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+
+    mysqli_begin_transaction($conexao);
+
+    try {
+        $query = "DELETE FROM cliente WHERE cod = '$codigo'";
+        $resultado = mysqli_query($conexao, $query);
+
+        mysqli_commit($conexao);
+        $dados = mysqli_affected_rows($conexao);
+
+    } catch (mysqli_sql_exception $e) {
+        mysqli_rollback($conexao);
+
+        if ($e->getCode() == 1451) {
+            return 'FOREIGN_KEY_CONSTRAINT';
+        } else {
+            throw $e;
+        }
+    } finally {
+        mysqli_close($conexao);
+    }
 
     return $dados;
-
 }
 
 function buscaClienteeditar($codigo){
@@ -122,6 +137,5 @@ function editarPerfilCliente($codigo,$nome,$email,$endereco,$numero,$bairro,$cid
     }
 
 }
-
 
 ?>

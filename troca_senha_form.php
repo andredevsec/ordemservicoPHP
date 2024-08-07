@@ -32,18 +32,6 @@ require_once('header.php');
                                    <?php
                                     unset($_SESSION['mensagem_erro']);
                                     endif;
-                                    
-                                    if (isset($_SESSION['mensagem_sucesso'])):
-                                    ?>
-                                        <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                            <strong><?= $_SESSION['mensagem_sucesso'] ?></strong> 
-                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                   <?php
-                                    unset($_SESSION['mensagem_sucesso']);
-                                    endif;
                                     ?>
 
                                     <form class="user" action="troca_senha.php" method="post">
@@ -53,13 +41,35 @@ require_once('header.php');
                                                 id="email" name="email" placeholder="Endereço de Email..." required>
                                         </div>
                                         <div class="form-group">
-                                            <label> Nova Senha </label>
-                                            <input type="password" class="form-control form-control-user"
-                                                id="nova_senha" name="nova_senha" placeholder="Nova Senha" required>
+                                            <label> Perfil </label>
+                                            <select class="form-control" id="perfil" name="perfil" required>
+                                                <option value=""> </option>
+                                                <option value="1">Administrador</option>
+                                                <option value="2">Cliente</option>
+                                                <option value="3">Terceirizado</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-sm-12 mb-3 mb-sm-3">
+                                                <label> Nova Senha </label>
+                                                <input type="password" class="form-control form-control-user"
+                                                id="senha" name="senha" placeholder="Nova Senha" required>
+                                            </div>
+                                            <div class="col-sm-12 mb-3 mb-sm-3">
+                                                <label> Confirmar Senha </label>
+                                                <input type="password" class="form-control form-control-user"
+                                                id="confirma_senha" name="confirma_senha" placeholder="Confirmar Senha" oninput="validatepassword(this)" required>
+                                            </div>
                                         </div>
                                         <button type="submit" class="btn btn-primary btn-user btn-block">
                                             Trocar Senha
-                                        </button>                                     
+                                        </button>  
+                                        <br>
+                                        <a title="Voltar" href="index.php">
+                                            <button type="button" class="btn btn-success btn-user" style="width:100%">
+                                                <i class="fas fa-arrow-circle-left"></i>&nbsp;Voltar
+                                            </button>
+                                        </a>                                  
                                     </form>
                                 </div>
                             </div>
@@ -76,5 +86,6 @@ require_once('header.php');
 <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 <script src="js/sb-admin-2.min.js"></script>
 
+<script src="js/validate.js"></script>
 </body>
 </html>

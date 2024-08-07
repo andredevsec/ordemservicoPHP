@@ -8,10 +8,12 @@ $codigo = $_GET['cod'];
 $dados = buscaClienteeditar($codigo);
 $nome = $dados["nome"];
 $email = $dados["email"];
+$cep = $dados["cep"];
 $endereco = $dados["endereco"];
 $numero = $dados["numero"];
 $bairro = $dados["bairro"];
 $cidade = $dados["cidade"];
+$uf = $dados["uf"];
 $telefone = $dados["telefone"];
 $status = $dados["status"];
 ?>
@@ -57,7 +59,7 @@ $status = $dados["status"];
                         </div>
                     </div>
 
-                     <div class="form-group row">
+                    <div class="form-group row">
                         <div class="col-sm-6 mb-3 mb-sm-0">
                             <label> Bairro </label>
                             <input type="text" class="form-control form-control-user" id="bairro" name="bairro" value="<?= $bairro ?>" readonly>
@@ -65,6 +67,17 @@ $status = $dados["status"];
                         <div class="col-sm-6">
                             <label> Cidade </label>
                             <input type="text" class="form-control form-control-user" id="cidade" name="cidade" value="<?= $cidade ?>" readonly>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-sm-6 mb-3 mb-sm-0">
+                            <label> CEP </label>
+                            <input type="text" class="form-control form-control-user" id="cep" name="cep" value="<?= $cep ?>" readonly>
+                        </div>
+                        <div class="col-sm-6">
+                            <label> UF </label>
+                            <input type="text" class="form-control form-control-user" id="uf" name="uf" value="<?= $uf ?>" readonly>
                         </div>
                     </div>
 
@@ -80,8 +93,7 @@ $status = $dados["status"];
                                 <option value="2" <?php echo ($status == 2) ? 'selected': ''; ?>>Inativo</option>
                             </select>
                         </div>
-                        
-                    </div>                    
+                    </div>
 
                     <div class="card-footer text-muted" id="btn-form">
                         <div class=text-right>

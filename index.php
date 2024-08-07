@@ -34,7 +34,19 @@ require_once('header.php');
                                    <?php
                                     unset($_SESSION['texto_erro_login']);
                                     endif;
-                                   ?>
+                            
+                                    if (isset($_SESSION['mensagem_sucesso'])):
+                                    ?>
+                                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                            <strong><?= $_SESSION['mensagem_sucesso'] ?></strong> 
+                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                   <?php
+                                    unset($_SESSION['mensagem_sucesso']);
+                                    endif;
+                                    ?>
                                    
                                     <form class="user" action="valida_login.php" method="post">
                                         <div class="form-group">
@@ -60,12 +72,16 @@ require_once('header.php');
                                         <button type="submit" class="btn btn-primary btn-user btn-block">
                                             Acessar
                                         </button>   
-                                    </form>
-                                    
+                                    </form>                                    
                                     <!-- Redireciona para o formulário de troca de senha -->
                                     <form class="user mt-2" action="troca_senha_form.php" method="get">
                                         <button type="submit" class="btn btn-secondary btn-user btn-block">
                                             Esqueci minha senha
+                                        </button>
+                                    </form>
+                                    <form class="user mt-2" action="cad_cliente_index.php" method="get">
+                                        <button type="submit" class="btn btn-warning btn-user btn-block">
+                                            Cadastrar-se
                                         </button>
                                     </form>
                                     

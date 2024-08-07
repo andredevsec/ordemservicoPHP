@@ -63,6 +63,44 @@ require_once('sidebar.php');
                         </div>
                     </div>
                     
+                    <div class="form-group row">
+                        <div class="col-sm-6 mb-3 mb-sm-0">
+                            <label> CEP </label>
+                            <input type="number" class="form-control form-control-user"
+                            id="cep" name="cep" placeholder="CEP" required>
+                        </div>
+                        <div class="col-sm-6">
+                            <label> Endereço </label>
+                            <input type="text" class="form-control form-control-user"
+                            id="endereco" name="endereco" placeholder="Endereço"  oninput="validatepassword(this)" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-sm-6 mb-3 mb-sm-0">
+                            <label> Número </label>
+                            <input type="number" class="form-control form-control-user"
+                            id="numero" name="numero" placeholder="Número" required>
+                        </div>
+                        <div class="col-sm-6">
+                            <label> Bairro </label>
+                            <input type="text" class="form-control form-control-user"
+                            id="bairro" name="bairro" placeholder="Bairro"  oninput="validatepassword(this)" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-sm-6 mb-3 mb-sm-0">
+                            <label> Cidade </label>
+                            <input type="text" class="form-control form-control-user"
+                            id="cidade" name="cidade" placeholder="Cidade" required>
+                        </div>
+                        <div class="col-sm-6">
+                            <label> UF </label>
+                            <input type="text" class="form-control form-control-user"
+                            id="uf" name="uf" placeholder="UF"  oninput="validatepassword(this)" required>
+                        </div>
+                    </div>
 
                     <div class="form-group row">
                         <div class="col-sm-6 mb-3 mb-sm-0">
@@ -107,5 +145,5 @@ require_once('sidebar.php');
 <?php
 require_once('footer.php');
 ?>
-
+<script src='./api/cep/viacep.js'></script>
 

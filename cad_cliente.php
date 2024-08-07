@@ -1,7 +1,5 @@
 <?php
-
     include_once('./api/cep/viacep.php');
-
     require_once('valida_session.php');
     require_once('header.php'); 
     require_once('sidebar.php');
@@ -50,7 +48,6 @@
                 unset($_SESSION['texto_sucesso']);
             endif;
             ?>
-
                 <form class="user" action="cad_cliente_envia.php" method="post" >
                     <div class="form-group row">
                         <div class="col-sm-6 mb-3 mb-sm-0">
@@ -74,7 +71,7 @@
                         <div class="col-sm-6">
                             <label> Confirmar Senha </label>
                             <input type="password" class="form-control form-control-user"
-                            id="confirma_senha" name="confirma_senha" placeholder="Confirmar Senha"  oninput="validatepassword(this)" required>
+                            id="confirma_senha" name="confirma_senha" placeholder="Confirmar Senha" oninput="validatepassword(this)" required>
                         </div>
                     </div>
 
@@ -151,5 +148,4 @@
 <?php
 require_once('footer.php');
 ?>
-
 <script src='./api/cep/viacep.js'></script>

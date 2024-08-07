@@ -33,15 +33,15 @@ function listaTerceirizados(){
 function buscaTerceirizado($email) {
     $conexao = conecta_bd();
     $query = "SELECT * FROM terceirizado WHERE email='$email'";
-    $resultado = mysqli_query($conexao, $query);
-    $dados = mysqli_num_rows($resultado);
+    return mysqli_query($conexao, $query);
 }
 
-function cadastraTerceirizado($nome,$email,$telefone,$senha,$status,$perfil,$data){
+function cadastraTerceirizado($nome,$email,$telefone,$senha,$cep,$endereco,$numero,$bairro,$cidade,$uf,$status,$perfil,$data){
 
     $conexao = conecta_bd();
-    $query = "Insert Into terceirizado(nome,email,telefone,senha,status,perfil,data) 
-    values('$nome','$email','$telefone','$senha','$status','$perfil','$data')";
+    $query = "insert into terceirizado (nome, email, telefone, senha, cep, endereco, numero, bairro, cidade, uf, status, perfil, data) 
+          VALUES ('$nome', '$email', '$telefone', '$senha', '$cep', '$endereco', '$numero', '$bairro', '$cidade', '$uf', '$status', '$perfil', '$data')";
+
 
     $resultado = mysqli_query($conexao, $query);
     $dados = mysqli_affected_rows($conexao);
@@ -50,15 +50,33 @@ function cadastraTerceirizado($nome,$email,$telefone,$senha,$status,$perfil,$dat
 
 }
 
-function removeTerceirizado($codigo){
-     $conexao = conecta_bd();
-    $query = "delete from terceirizado where cod = '$codigo'";
+function removeTerceirizado($codigo) {
+    $conexao = conecta_bd();
 
-    $resultado = mysqli_query($conexao, $query);
-    $dados = mysqli_affected_rows($conexao);
+    mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+
+    mysqli_begin_transaction($conexao);
+
+    try {
+        $query = "DELETE FROM terceirizado WHERE cod = '$codigo'";
+        $resultado = mysqli_query($conexao, $query);
+
+        mysqli_commit($conexao);
+        $dados = mysqli_affected_rows($conexao);
+
+    } catch (mysqli_sql_exception $e) {
+        mysqli_rollback($conexao);
+
+        if ($e->getCode() == 1451) {
+            return 'FOREIGN_KEY_CONSTRAINT';
+        } else {
+            throw $e;
+        }
+    } finally {
+        mysqli_close($conexao);
+    }
 
     return $dados;
-
 }
 
 function buscaTerceirizadoeditar($codigo){
@@ -74,6 +92,24 @@ function buscaTerceirizadoeditar($codigo){
 
 }
 
+function editarTerceirizado($codigo,$status,$data){
+    $conexao = conecta_bd();
+    $query = "select *
+              from terceirizado
+              where cod='$codigo'";
+
+    $resultado = mysqli_query($conexao,$query);
+    $dados = mysqli_num_rows($resultado);
+    if($dados == 1){
+        $query = "update terceirizado
+        set status = '$status', data = '$data'
+        where cod = '$codigo'";
+        $resultado = mysqli_query($conexao,$query);
+        $dados = mysqli_affected_rows($conexao);
+        return $dados;
+    }
+
+}
 
 function editarSenhaTerceirizado($codigo, $senha) {
     $conexao = conecta_bd();
