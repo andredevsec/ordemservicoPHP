@@ -38,7 +38,10 @@ function listaUsuarios(){
 function buscaUsuario($email) {
     $conexao = conecta_bd();
     $query = "SELECT * FROM usuario WHERE email='$email'";
-    return mysqli_query($conexao, $query);
+    $resultado = mysqli_query($conexao, $query);
+    $dados = mysqli_num_rows($resultado);
+
+    return $dados;
 }
 
 function cadastraUsuario ($nome,$senha,$email,$cep,$endereco,$numero,$bairro,$cidade,$uf,$perfil,$status,$data){
