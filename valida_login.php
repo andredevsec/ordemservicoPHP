@@ -2,7 +2,7 @@
 session_start();
 
 if ((empty($_POST['email'])) OR (empty($_POST['senha'])) OR (empty($_POST['perfil']))){
-    header("Location: index.php"); 
+    header("Location: index.php");
 }
 else{
 
@@ -33,12 +33,12 @@ else{
 	    // Salva os dados encontrados na sessão
 	    $_SESSION['cod_usu'] = $dados['cod'];
 		$_SESSION['nome_usu'] = $dados['nome'];
+		$_SESSION['email_usu'] = $dados['email'];
 		$_SESSION['perfil'] = $dados['perfil'];
 		$_SESSION['status'] = $dados['status'];
 	    header("Location:home.php");
 	}
 	die();
 }
-
 
 ?>
